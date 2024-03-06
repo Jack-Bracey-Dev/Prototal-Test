@@ -63,7 +63,7 @@ public class ResetPasswordController {
 
         jwtSessions.invalidate(bearer);
 
-        return ResponseEntity.ok("Password changed");
+        return ResponseEntity.ok("Password changed, you must sign in again");
     }
 
 }
