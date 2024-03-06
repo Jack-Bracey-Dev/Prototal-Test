@@ -1,6 +1,7 @@
 package com.jackbracey.prototaltest.Utilities;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.util.Strings;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.util.StringTokenizer;
@@ -15,6 +16,10 @@ public class RequestUtils {
      */
     public static String ExtractBasicFromRequest(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
+
+        if (Strings.isBlank(auth))
+            return null;
+
         StringTokenizer tokenizer = new StringTokenizer(auth);
         if (tokenizer.hasMoreTokens()) {
             String authType = tokenizer.nextToken();
@@ -33,6 +38,10 @@ public class RequestUtils {
      */
     public static String ExtractBearerTokenFromRequest(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
+
+        if (Strings.isBlank(auth))
+            return null;
+
         StringTokenizer tokenizer = new StringTokenizer(auth);
 
         if (tokenizer.hasMoreTokens()) {

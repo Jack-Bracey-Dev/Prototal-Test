@@ -1,6 +1,6 @@
 package com.jackbracey.prototaltest.Controller;
 
-import com.jackbracey.prototaltest.Security.JwtSessions;
+import com.jackbracey.prototaltest.Configuration.Security.JwtSessions;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.util.Strings;

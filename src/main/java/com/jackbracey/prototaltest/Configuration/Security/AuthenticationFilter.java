@@ -1,4 +1,4 @@
-package com.jackbracey.prototaltest.Security;
+package com.jackbracey.prototaltest.Configuration.Security;
 
 import com.jackbracey.prototaltest.Services.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -34,7 +34,8 @@ public class AuthenticationFilter extends GenericFilterBean {
                          ServletResponse resp,
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
-        if (Arrays.stream(SecurityConfig.OPEN_URLS).anyMatch(url -> url.equalsIgnoreCase(request.getServletPath()))) {
+        if (Arrays.stream(SecurityConfig.OPEN_URLS).anyMatch(url -> url.equalsIgnoreCase(request.getServletPath()))
+                || request.getServletPath().contains("swagger")) {
             filterChain.doFilter(req, resp);
             return;
         }

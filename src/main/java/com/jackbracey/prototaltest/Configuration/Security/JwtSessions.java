@@ -1,4 +1,4 @@
-package com.jackbracey.prototaltest.Security;
+package com.jackbracey.prototaltest.Configuration.Security;
 
 import com.jackbracey.prototaltest.Services.JwtUtils;
 import io.jsonwebtoken.Claims;

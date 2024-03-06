@@ -1,4 +1,4 @@
-package com.jackbracey.prototaltest.Security;
+package com.jackbracey.prototaltest.Configuration.Security;
 
 import com.jackbracey.prototaltest.Services.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,9 @@ public class SecurityConfig {
     public static final String[] OPEN_URLS = {
             "/sign-up",
             "/sign-in",
-            "/error"
+            "/error",
+            "/api-docs",
+            "/swagger-ui/index.html"
     };
 
     @Bean
