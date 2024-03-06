@@ -5,6 +5,7 @@ import com.jackbracey.prototaltest.Pojo.PasswordChangeDetails;
 import com.jackbracey.prototaltest.Security.JwtSessions;
 import com.jackbracey.prototaltest.Services.JwtUtils;
 import com.jackbracey.prototaltest.Services.AccountService;
+import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,9 +34,12 @@ public class ResetPasswordController {
     @PostMapping
     public ResponseEntity<?> passwordReset(@RequestBody PasswordChangeDetails passwordChangeDetails,
                                            HttpServletRequest request) {
-        // TODO replace this with a clearer error message
-        if (passwordChangeDetails == null || !passwordChangeDetails.isValid())
-            return new ResponseEntity<>("This needs improving to show the issue", HttpStatus.BAD_REQUEST);
+        if (passwordChangeDetails == null)
+            return new ResponseEntity<>("Missing request body", HttpStatus.BAD_REQUEST);
+
+        String requestBodyErrors = passwordChangeDetails.checkForErrors();
+        if (Strings.isNotBlank(requestBodyErrors))
+            return new ResponseEntity<>(requestBodyErrors, HttpStatus.BAD_REQUEST);
 
         String bearer = RequestUtils.ExtractBearerTokenFromRequest(request);
         if (Strings.isBlank(bearer))
@@ -49,10 +53,11 @@ public class ResetPasswordController {
         if (account == null)
             return new ResponseEntity<>("Could not find account with that email", HttpStatus.UNAUTHORIZED);
 
-        if (!account.getPassword().equals(passwordChangeDetails.getCurrentPassword()))
+        EncryptionUtils encryptionUtils = new EncryptionUtils();
+        if (!encryptionUtils.matches(passwordChangeDetails.getCurrentPassword(), account.getPassword()))
             return new ResponseEntity<>("Current password does not match", HttpStatus.BAD_REQUEST);
 
-        account.setPassword(passwordChangeDetails.getNewPassword());
+        account.setPassword(encryptionUtils.encrypt(passwordChangeDetails.getNewPassword()));
         accountService.save(account);
 
         jwtSessions.invalidate(bearer);

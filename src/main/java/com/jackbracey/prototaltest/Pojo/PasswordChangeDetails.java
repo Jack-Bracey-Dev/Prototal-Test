@@ -1,5 +1,6 @@
 package com.jackbracey.prototaltest.Pojo;
 
+import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
 import org.apache.logging.log4j.util.Strings;
 
 public class PasswordChangeDetails {
@@ -43,10 +44,22 @@ public class PasswordChangeDetails {
         this.newPasswordCopy = newPasswordCopy;
     }
 
-    public boolean isValid() {
-        return Strings.isNotBlank(this.currentPassword)
-                && Strings.isNotBlank(this.newPassword)
-                && Strings.isNotBlank(this.newPasswordCopy)
-                && this.newPassword.equals(this.newPasswordCopy);
+    public String checkForErrors() {
+        StringBuilder builder = new StringBuilder();
+
+        if (Strings.isBlank(this.currentPassword))
+            builder.append("Missing element 'currentPassword'").append("\n");
+
+        if (Strings.isBlank(this.newPassword))
+            builder.append("Missing element 'newPassword").append("\n");
+
+        if (Strings.isBlank(this.newPasswordCopy))
+            builder.append("Missing element 'newPasswordCopy").append("\n");
+
+        if (Strings.isNotBlank(this.newPassword) && Strings.isNotBlank(this.newPasswordCopy))
+            if (!this.newPassword.equals(this.newPasswordCopy))
+                builder.append("'newPassword' and 'newPasswordCopy' do not match");
+
+        return builder.toString();
     }
 }
