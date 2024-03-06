@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("reset-my-password")
+@SuppressWarnings("unused")
 public class ResetPasswordController {
 
     @Autowired

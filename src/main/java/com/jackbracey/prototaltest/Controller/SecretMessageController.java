@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("secret-message")
+@SuppressWarnings("unused")
 public class SecretMessageController {
 
     @Autowired

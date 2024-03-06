@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("sign-out")
+@SuppressWarnings("unused")
 public class SignOutController {
 
     @Autowired
