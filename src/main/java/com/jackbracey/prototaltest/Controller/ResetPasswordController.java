@@ -1,6 +1,6 @@
 package com.jackbracey.prototaltest.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("reset-my-password")
 public class ResetPasswordController {
 
-    @GetMapping
-    public String test() {
+    @PostMapping
+    public String passwordReset() {
         return "Hello World!";
     }
 

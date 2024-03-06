@@ -6,7 +6,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,7 @@ public class SignUpController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping(produces = "application/json")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<?> signUp(@RequestBody Account account) throws BadRequestException {
         if (account == null || account.getEmail() == null || account.getPassword() == null)
             return new ResponseEntity<>("Json body must have email and password", HttpStatus.BAD_REQUEST);

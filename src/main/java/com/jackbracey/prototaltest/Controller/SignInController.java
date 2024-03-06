@@ -9,7 +9,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +31,7 @@ public class SignInController {
     @Autowired
     private JwtSessions jwtSessions;
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> signIn(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");
         StringTokenizer tokenizer = new StringTokenizer(auth);
