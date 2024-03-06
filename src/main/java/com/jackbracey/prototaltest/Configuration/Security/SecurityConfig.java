@@ -26,8 +26,7 @@ public class SecurityConfig {
             "/sign-up",
             "/sign-in",
             "/error",
-            "/api-docs",
-            "/swagger-ui/index.html"
+            "/api-docs"
     };
 
     @Bean
