@@ -44,6 +44,7 @@ public class JwtUtils {
         if (this.key == null)
             this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
 
+        // TODO fix error thrown when token has expired
         return Jwts.parser()
                 .verifyWith(this.key)
                 .build()
