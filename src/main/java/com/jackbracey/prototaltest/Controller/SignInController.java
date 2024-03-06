@@ -4,6 +4,7 @@ import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Security.JwtSessions;
 import com.jackbracey.prototaltest.Services.JwtUtils;
 import com.jackbracey.prototaltest.Services.AccountService;
+import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.util.Strings;
@@ -45,7 +46,7 @@ public class SignInController {
             if (foundAccount == null)
                 return new ResponseEntity<>("This account does not exist", HttpStatus.UNAUTHORIZED);
 
-            if (!foundAccount.getPassword().equals(password))
+            if (!new EncryptionUtils().matches(password, foundAccount.getPassword()))
                 return new ResponseEntity<>("Incorrect password", HttpStatus.UNAUTHORIZED);
 
             String token = jwtUtils.generate(email);

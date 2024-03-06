@@ -2,6 +2,7 @@ package com.jackbracey.prototaltest.Controller;
 
 import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Services.AccountService;
+import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,9 @@ public class SignUpController {
         if (existingAccount != null)
             return new ResponseEntity<>("There is already an account with this email", HttpStatus.BAD_REQUEST);
 
-        return ResponseEntity.ok(accountService.save(account));
+        account.setPassword(new EncryptionUtils().encrypt(account.getPassword()));
+        accountService.save(account);
+        return ResponseEntity.ok("Account created");
     }
 
 }
