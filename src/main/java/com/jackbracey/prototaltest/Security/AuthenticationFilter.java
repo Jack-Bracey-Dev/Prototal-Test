@@ -1,5 +1,6 @@
 package com.jackbracey.prototaltest.Security;
 
+import com.jackbracey.prototaltest.Services.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -2,7 +2,7 @@ package com.jackbracey.prototaltest.Controller;
 
 import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Security.JwtSessions;
-import com.jackbracey.prototaltest.Security.JwtUtils;
+import com.jackbracey.prototaltest.Services.JwtUtils;
 import com.jackbracey.prototaltest.Services.AccountService;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;

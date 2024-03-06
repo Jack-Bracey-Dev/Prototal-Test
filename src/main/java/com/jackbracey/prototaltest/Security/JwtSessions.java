@@ -1,5 +1,6 @@
 package com.jackbracey.prototaltest.Security;
 
+import com.jackbracey.prototaltest.Services.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
