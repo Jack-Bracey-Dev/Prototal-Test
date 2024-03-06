@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  mongodb_container:
+    image: mongo:latest
+    restart: on-failure
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_ROOT_DATABASE: admin
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb_data_container:
