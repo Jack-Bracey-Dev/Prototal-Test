@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "53732d97-b0e1-47b5-ad21-d1c4e72002d1",
+		"name": "Prototal Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28630260"
+	},
+	"item": [
+		{
+			"name": "Sign Up",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Jack\",\r\n    \"surname\": \"Bracey\",\r\n    \"email\": \"jack.bracey@hotmail.co.uk\",\r\n    \"password\": \"pwd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/sign-up",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "pwd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "jack.bracey@hotmail.co.uk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImphY2suYnJhY2V5QGhvdG1haWwuY28udWsiLCJpYXQiOjE3MDk3MjAyMTMsImV4cCI6MTcwOTcyMDgxM30.JBi656K-53IX0Cea6FZEilVN7MBQhHcRO6li0yJ0WgA",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/sign-in",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Out",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImphY2suYnJhY2V5QGhvdG1haWwuY28udWsiLCJpYXQiOjE3MDk4MjY4MDQsImV4cCI6MTcwOTgyNzQwNH0.sIlhV5r80oGDopOf9B6eDpk1rC0z3AaCYDmnu366u7I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/sign-out",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sign-out"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Secret Message",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImphY2suYnJhY2V5QGhvdG1haWwuY28udWsiLCJpYXQiOjE3MDk4MjY4MDQsImV4cCI6MTcwOTgyNzQwNH0.sIlhV5r80oGDopOf9B6eDpk1rC0z3AaCYDmnu366u7I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/secret-message",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"secret-message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password Reset",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImphY2suYnJhY2V5QGhvdG1haWwuY28udWsiLCJpYXQiOjE3MDk4MjY4MDQsImV4cCI6MTcwOTgyNzQwNH0.sIlhV5r80oGDopOf9B6eDpk1rC0z3AaCYDmnu366u7I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentPassword\": \"pwd\",\r\n    \"newPassword\": \"password\",\r\n    \"newPasswordCopy\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/reset-my-password",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"reset-my-password"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
