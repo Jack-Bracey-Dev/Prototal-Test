@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class EncodingUtils {
 
-    PasswordEncoder encoder;
+    final PasswordEncoder encoder;
 
     public EncodingUtils() {
         encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();

@@ -32,13 +32,11 @@ public class ResetPasswordControllerTests {
 
     private JwtUtils jwtUtils;
 
-    private JwtSessions jwtSessions;
-
     @BeforeEach
     void beforeEach() {
         accountService = mock(AccountService.class);
         jwtUtils = mock(JwtUtils.class);
-        jwtSessions = mock(JwtSessions.class);
+        JwtSessions jwtSessions = mock(JwtSessions.class);
         controller = new ResetPasswordController(accountService, jwtUtils, jwtSessions);
     }
 

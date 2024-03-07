@@ -19,11 +19,9 @@ public class SignOutControllerTest {
 
     private SignOutController controller;
 
-    private JwtSessions jwtSessions;
-
     @BeforeEach
     void beforeEach() {
-        jwtSessions = mock(JwtSessions.class);
+        JwtSessions jwtSessions = mock(JwtSessions.class);
         controller = new SignOutController(jwtSessions);
     }
 
