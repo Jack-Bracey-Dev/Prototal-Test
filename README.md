@@ -46,6 +46,14 @@ Implement a backend REST API using Spring Boot where a user can sign up and sign
 
 **End of specification**
 
+# Design decisions:
+- Used MongoDB - Never used a NoSQL database, so was interested to see its capabilities and wanted to learn a bit about the technology during the development stage.
+- Swagger - To generate documentation for the API - Useful to maintaining up-to-date documentation
+- io.jsonwebtoken - For generating JWTs for tracking authenticated sessions - Provides in-built functionality to easily generate JWTs that contain an expiry time. Expiry time can be set (In milliseconds) in the application.properties `runtime.jwt.expires` 
+- JUnit - Unit tests for writing test cases for controllers and any testable methods.
+
+**Note:** I didn't use WebFlux as I had a small window to build the project and wanted to meet the deadline. I had also decided to use MongoDB and didn't want to add too many unknowns to the development process.
+
 # Setup:
 - Clone the repository
 - Open the project in an ide (I'm using IntelliJ)
