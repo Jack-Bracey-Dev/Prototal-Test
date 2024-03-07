@@ -1,9 +1,9 @@
 package com.jackbracey.prototaltest.Utilities;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
+import com.jackbracey.prototaltest.Configuration.Security.JwtSessions;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -46,12 +46,19 @@ public class JwtUtils {
         if (this.key == null)
             this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
 
-        // TODO fix error thrown when token has expired
-        return Jwts.parser()
+        JwtParser parser = Jwts.parser()
                 .verifyWith(this.key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+                .build();
+        Jws<Claims> claimsJws;
+
+        try {
+             claimsJws = parser.parseSignedClaims(token);
+             return claimsJws
+                     .getPayload();
+        } catch (ExpiredJwtException e) {
+            System.out.println("Token has expired");
+            return null;
+        }
     }
 
 }

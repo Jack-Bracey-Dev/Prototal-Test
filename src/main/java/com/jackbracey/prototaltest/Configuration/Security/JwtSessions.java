@@ -30,6 +30,12 @@ public class JwtSessions {
             return false;
 
         Claims claims = jwtUtils.getInfoFromToken(token);
+
+        if (claims == null) {
+            invalidate(token);
+            return false;
+        }
+
         return new Date(System.currentTimeMillis()).before(claims.getExpiration());
     }
 
