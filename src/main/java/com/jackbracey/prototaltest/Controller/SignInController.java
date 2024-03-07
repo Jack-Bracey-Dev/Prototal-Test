@@ -1,10 +1,10 @@
 package com.jackbracey.prototaltest.Controller;
 
-import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Configuration.Security.JwtSessions;
-import com.jackbracey.prototaltest.Services.JwtUtils;
+import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Services.AccountService;
-import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
+import com.jackbracey.prototaltest.Utilities.EncodingUtils;
+import com.jackbracey.prototaltest.Utilities.JwtUtils;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.util.Strings;
@@ -20,17 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("unused")
 public class SignInController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
+
+    private final JwtUtils jwtUtils;
+
+    private final JwtSessions jwtSessions;
 
     @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private JwtSessions jwtSessions;
+    public SignInController(AccountService accountService, JwtUtils jwtUtils, JwtSessions jwtSessions) {
+        this.accountService = accountService;
+        this.jwtUtils = jwtUtils;
+        this.jwtSessions = jwtSessions;
+    }
 
     @PostMapping
-    public ResponseEntity<?> signIn(HttpServletRequest request) {
+    public ResponseEntity<String> signIn(HttpServletRequest request) {
         String credentials = RequestUtils.ExtractBasicFromRequest(request);
 
         if (Strings.isBlank(credentials))
@@ -46,7 +50,7 @@ public class SignInController {
             if (foundAccount == null)
                 return new ResponseEntity<>("This account does not exist", HttpStatus.UNAUTHORIZED);
 
-            if (!new EncryptionUtils().matches(password, foundAccount.getPassword()))
+            if (!new EncodingUtils().matches(password, foundAccount.getPassword()))
                 return new ResponseEntity<>("Incorrect password", HttpStatus.UNAUTHORIZED);
 
             String token = jwtUtils.generate(email);

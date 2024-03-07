@@ -1,8 +1,8 @@
 package com.jackbracey.prototaltest.Controller;
 
 import com.jackbracey.prototaltest.Models.Account;
-import com.jackbracey.prototaltest.Services.JwtUtils;
 import com.jackbracey.prototaltest.Services.AccountService;
+import com.jackbracey.prototaltest.Utilities.JwtUtils;
 import com.jackbracey.prototaltest.Utilities.RequestUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,20 +19,28 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("unused")
 public class SecretMessageController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
+
+    private final JwtUtils jwtUtils;
 
     @Autowired
-    private JwtUtils jwtUtils;
+    public SecretMessageController(AccountService accountService, JwtUtils jwtUtils) {
+        this.accountService = accountService;
+        this.jwtUtils = jwtUtils;
+    }
 
     @GetMapping
-    public ResponseEntity<?> getSecretMessage(HttpServletRequest request) {
+    public ResponseEntity<String> getSecretMessage(HttpServletRequest request) {
         String bearer = RequestUtils.ExtractBearerTokenFromRequest(request);
 
         if (Strings.isBlank(bearer))
             return new ResponseEntity<>("Missing bearer token", HttpStatus.UNAUTHORIZED);
 
         Claims claims = jwtUtils.getInfoFromToken(bearer);
+
+        if (claims == null)
+            return new ResponseEntity<>("Bearer token is invalid", HttpStatus.UNAUTHORIZED);
+
         String email = String.valueOf(claims.get("email"));
 
         Account account = accountService.findAccountByEmail(email);

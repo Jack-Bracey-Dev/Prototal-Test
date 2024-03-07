@@ -34,7 +34,7 @@ public class RequestUtils {
 
     /***
      * @param request The request we are getting the bearer auth details from
-     * @return
+     * @return The JWT/Bearer token without "Bearer "
      */
     public static String ExtractBearerTokenFromRequest(HttpServletRequest request) {
         String auth = request.getHeader("Authorization");

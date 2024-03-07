@@ -17,11 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("unused")
 public class SignOutController {
 
+    private final JwtSessions jwtSessions;
+
     @Autowired
-    private JwtSessions jwtSessions;
+    public SignOutController(JwtSessions jwtSessions) {
+        this.jwtSessions = jwtSessions;
+    }
 
     @PostMapping
-    public ResponseEntity<?> signOut(HttpServletRequest request) {
+    public ResponseEntity<String> signOut(HttpServletRequest request) {
         String bearer = RequestUtils.ExtractBearerTokenFromRequest(request);
 
         if (Strings.isBlank(bearer))

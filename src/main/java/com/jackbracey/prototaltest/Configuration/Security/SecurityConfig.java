@@ -1,6 +1,6 @@
 package com.jackbracey.prototaltest.Configuration.Security;
 
-import com.jackbracey.prototaltest.Services.JwtUtils;
+import com.jackbracey.prototaltest.Utilities.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

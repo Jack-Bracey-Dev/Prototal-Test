@@ -1,23 +1,25 @@
-package com.jackbracey.prototaltest.Services;
+package com.jackbracey.prototaltest.Utilities;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 
-@Service
+@Component
 public class JwtUtils {
 
+    @SuppressWarnings("unused")
     @Value("${runtime.jwt.secret}")
     private String secret;
 
+    @SuppressWarnings("unused")
     @Value("${runtime.jwt.expires}")
     private Integer expiryTime;
 

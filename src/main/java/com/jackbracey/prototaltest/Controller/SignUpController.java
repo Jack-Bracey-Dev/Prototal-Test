@@ -2,8 +2,8 @@ package com.jackbracey.prototaltest.Controller;
 
 import com.jackbracey.prototaltest.Models.Account;
 import com.jackbracey.prototaltest.Services.AccountService;
-import com.jackbracey.prototaltest.Utilities.EncryptionUtils;
-import org.apache.coyote.BadRequestException;
+import com.jackbracey.prototaltest.Utilities.EncodingUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("unused")
 public class SignUpController {
 
+    private final AccountService accountService;
+
     @Autowired
-    private AccountService accountService;
+    public SignUpController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @PostMapping(produces = "application/json")
-    public ResponseEntity<?> signUp(@RequestBody Account account) throws BadRequestException {
-        if (account == null || account.getEmail() == null || account.getPassword() == null)
+    public ResponseEntity<String> signUp(@RequestBody Account account) {
+        if (account == null || Strings.isBlank(account.getEmail()) || Strings.isBlank(account.getPassword()))
             return new ResponseEntity<>("Json body must have email and password", HttpStatus.BAD_REQUEST);
 
         Account existingAccount = accountService.findAccountByEmail(account.getEmail());
@@ -30,7 +34,7 @@ public class SignUpController {
         if (existingAccount != null)
             return new ResponseEntity<>("There is already an account with this email", HttpStatus.BAD_REQUEST);
 
-        account.setPassword(new EncryptionUtils().encrypt(account.getPassword()));
+        account.setPassword(new EncodingUtils().encode(account.getPassword()));
         accountService.save(account);
         return ResponseEntity.ok("Account created");
     }

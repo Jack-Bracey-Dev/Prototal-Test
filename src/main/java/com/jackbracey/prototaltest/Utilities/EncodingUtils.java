@@ -3,15 +3,15 @@ package com.jackbracey.prototaltest.Utilities;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class EncryptionUtils {
+public class EncodingUtils {
 
     PasswordEncoder encoder;
 
-    public EncryptionUtils() {
+    public EncodingUtils() {
         encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    public String encrypt(String value) {
+    public String encode(String value) {
         return encoder.encode(value);
     }
 
